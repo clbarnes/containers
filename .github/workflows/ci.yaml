@@ -24,4 +24,4 @@ jobs:
           sudo dpkg -i /tmp/apptainer.deb
 
       - name: Build image
-        run: make ${{ container }}
+        run: make ${{ matrix.container }}
