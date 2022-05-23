@@ -1,0 +1,29 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+%post
+	apt-get update
+	apt-get install -y openjdk-8-jdk maven wget unzip
+	update-java-alternatives -s java-1.8.0-openjdk-amd64
+
+	export VERSION=4468368216
+	wget https://github.com/saalfeldlab/n5-spark/archive/$VERSION.zip -O n5-spark.zip
+	unzip n5-spark.zip -d /n5-spark-tmp
+	mkdir /n5-spark
+	mv /n5-spark-tmp/*/* /n5-spark/
+	rm -r /n5-spark-tmp n5-spark.zip
+	echo "n5-spark git ref: $VERSION" > /VERSION
+
+	ln -s /usr/bin/python3 /usr/bin/python
+	/n5-spark/build-spark-local.py
+
+%runscript
+	export PATH="/n5-spark/startup-scripts/spark-local/:$PATH"
+	exec "$@"
+
+%labels
+	Author Chris Barnes <cbarnes@mrc-lmb.cam.ac.uk
+
+%help
+	A container for running github.com/saalfeldlab/n5-spark utilities in a local cluster.
+	Run `./n5-spark.sif script_name.py your --args here`.

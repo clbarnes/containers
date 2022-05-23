@@ -1,0 +1,51 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        container: [fiji, ilastik, n5-spark]
+    env:
+      APPTAINER_VERISON: "1.0.2"
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget
+      - name: Install apptainer
+        run: |
+          wget https://github.com/apptainer/apptainer/releases/download/v$APPTAINER_VERISON/apptainer_$APPTAINER_VERSION_amd64.deb -O /tmp/apptainer.deb
+          sudo dpkg -i /tmp/apptainer.deb
+      # - uses: actions/setup-go@v3
+      #   with:
+      #     go-version: '^1.13.1'
+
+      # - name: Install apptainer dependencies
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y \
+      #       build-essential \
+      #       libseccomp-dev \
+      #       pkg-config \
+      #       squashfs-tools \
+      #       cryptsetup \
+      #       curl wget git
+
+      # - name: Install apptainer
+      #   run: |
+      #     export VERSION=1.0.0 && # adjust this as necessary \
+      #       wget https://github.com/apptainer/apptainer/releases/download/v${VERSION}/apptainer-${VERSION}.tar.gz && \
+      #       tar -xzf apptainer-${VERSION}.tar.gz && \
+      #       cd apptainer-${VERSION}
+      #     ./mconfig && \
+      #       make -C builddir && \
+      #       sudo make -C builddir install
+
+      - name: Build image
+        run: make ${container}

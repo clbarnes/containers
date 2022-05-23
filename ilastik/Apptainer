@@ -1,0 +1,24 @@
+
+Bootstrap: docker
+From: ubuntu:22.04
+
+%post
+	apt-get update
+	apt-get install -y wget
+	export VERSION="1.3.3post3"
+	mkdir /ilastik-tmp /ilastik
+	wget https://files.ilastik.org/ilastik-$VERSION-Linux.tar.bz2 -O - | tar xvjf - --directory /ilastik-tmp
+	mv /ilastik-tmp/*/* /ilastik
+	echo "Ilastik release: $VERSION" > /VERSION
+
+%runscript
+	exec /ilastik/run_ilastik.sh --headless
+
+%labels
+	Author Chris Barnes <cbarnes@mrc-lmb.cam.ac.uk>
+
+%help
+	A container for headless Ilastik: https://www.ilastik.org/.
+	Does not include any commercial solvers or local config.
+
+	Run `./ilastik.sif your --args` (`--headless` can be omitted).
