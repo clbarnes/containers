@@ -4,7 +4,7 @@ From: python:3.10.6-slim-bullseye
 %post
 	apt-get update
 	apt-get install -y git
-	export VERSION="b0c133f"
+	export VERSION="16b0e1d"
 	python3 -m pip install git+https://github.com/clbarnes/n5mrc.git@$VERSION
 	echo $VERSION > /VERSION
 
