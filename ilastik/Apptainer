@@ -12,7 +12,7 @@ From: ubuntu:22.04
 	echo $VERSION > /VERSION
 
 %runscript
-	exec /ilastik/run_ilastik.sh --headless
+	exec /ilastik/run_ilastik.sh --headless "$@"
 
 %labels
 	Author Chris Barnes <cbarnes@mrc-lmb.cam.ac.uk>
