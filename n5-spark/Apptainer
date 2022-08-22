@@ -12,7 +12,7 @@ From: ubuntu:22.04
 	mkdir /n5-spark
 	mv /n5-spark-tmp/*/* /n5-spark/
 	rm -r /n5-spark-tmp n5-spark.zip
-	echo "n5-spark git ref: $VERSION" > /VERSION
+	echo "$VERSION" > /VERSION
 
 	ln -s /usr/bin/python3 /usr/bin/python
 	/n5-spark/build-spark-local.py

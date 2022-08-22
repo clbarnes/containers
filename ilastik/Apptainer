@@ -9,7 +9,7 @@ From: ubuntu:22.04
 	mkdir /ilastik-tmp /ilastik
 	wget https://files.ilastik.org/ilastik-$VERSION-Linux.tar.bz2 -O - | tar xvjf - --directory /ilastik-tmp
 	mv /ilastik-tmp/*/* /ilastik
-	echo "Ilastik release: $VERSION" > /VERSION
+	echo $VERSION > /VERSION
 
 %runscript
 	exec /ilastik/run_ilastik.sh --headless
