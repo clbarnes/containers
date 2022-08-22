@@ -1,0 +1,20 @@
+Bootstrap: docker
+From: python:3.10.6-slim-bullseye
+
+%post
+	apt-get update
+	apt-get install -y git
+	export VERSION="b0c133f"
+	python3 -m pip install git+https://github.com/clbarnes/n5mrc.git@$VERSION
+	echo $VERSION > /VERSION
+
+%runscript
+	exec n5mrc "$@"
+
+%labels
+	Author Chris Barnes <cbarnes@mrc-lmb.cam.ac.uk>
+
+%help
+	A container for n5mrc, to export subvolumes of N5 datasets to MRC format.
+
+	Run `./n5mrc.sif your --args`.
