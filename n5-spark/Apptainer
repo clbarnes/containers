@@ -6,7 +6,8 @@ From: ubuntu:22.04
 	apt-get install -y openjdk-8-jdk maven wget unzip
 	update-java-alternatives -s java-1.8.0-openjdk-amd64
 
-	export VERSION=4468368216
+	# updated 2023-02-01
+	export VERSION=9097071
 	wget https://github.com/saalfeldlab/n5-spark/archive/$VERSION.zip -O n5-spark.zip
 	unzip n5-spark.zip -d /n5-spark-tmp
 	mkdir /n5-spark
@@ -22,7 +23,7 @@ From: ubuntu:22.04
 	exec "$@"
 
 %labels
-	Author Chris Barnes <cbarnes@mrc-lmb.cam.ac.uk
+	Author Chris Barnes <cbarnes@mrc-lmb.cam.ac.uk>
 
 %help
 	A container for running github.com/saalfeldlab/n5-spark utilities in a local cluster.

@@ -4,7 +4,7 @@ From: ubuntu:22.04
 %post
 	apt-get update
 	apt-get install -y wget
-	export VERSION="20220414-1745"
+	export VERSION="20221201-1017"
 	wget https://downloads.imagej.net/fiji/archive/$VERSION/fiji-linux64.tar.gz -O - | tar xvzf - --directory /
 	# /Fiji.app/ImageJ-linux64 --update update
 	# echo "$VERSION__$(date --iso-8601)" > /VERSION
@@ -14,7 +14,7 @@ From: ubuntu:22.04
 	exec /Fiji.app/ImageJ-linux64 --headless "$@"
 
 %labels
-	Author Chris Barnes <cbarnes@mrc-lmb.cam.ac.uk
+	Author Chris Barnes <cbarnes@mrc-lmb.cam.ac.uk>
 
 %help
 	A container for headless Fiji: https://imagej.net/software/fiji/.
