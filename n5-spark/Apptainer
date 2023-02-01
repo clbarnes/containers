@@ -1,18 +1,18 @@
 Bootstrap: docker
-From: ubuntu:22.04
+From: debian:sid-20230109
 
 %post
 	apt-get update
-	apt-get install -y openjdk-8-jdk maven wget unzip
+	apt-get install -y openjdk-8-jdk maven wget unzip python3 libblosc-dev
 	update-java-alternatives -s java-1.8.0-openjdk-amd64
 
 	# updated 2023-02-01
 	export VERSION=9097071
-	wget https://github.com/saalfeldlab/n5-spark/archive/$VERSION.zip -O n5-spark.zip
-	unzip n5-spark.zip -d /n5-spark-tmp
+	wget https://github.com/saalfeldlab/n5-spark/archive/$VERSION.zip -O /tmp/n5-spark.zip
+	unzip /tmp/n5-spark.zip -d /tmp/n5-spark
 	mkdir /n5-spark
-	mv /n5-spark-tmp/*/* /n5-spark/
-	rm -r /n5-spark-tmp n5-spark.zip
+	mv /tmp/n5-spark/*/* /n5-spark/
+	rm -r /tmp/n5-spark*
 	echo "$VERSION" > /VERSION
 
 	ln -s /usr/bin/python3 /usr/bin/python
