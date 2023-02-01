@@ -1,11 +1,14 @@
 Bootstrap: docker
-From: ubuntu:22.04
+From: debian:sid-20230109
 
 %post
 	apt-get update
-	apt-get install -y wget
+	apt-get install -y wget unzip
 	export VERSION="20221201-1017"
-	wget https://downloads.imagej.net/fiji/archive/$VERSION/fiji-linux64.tar.gz -O - | tar xvzf - --directory /
+	wget https://downloads.imagej.net/fiji/archive/$VERSION/fiji-linux64.zip -O /tmp/fiji.zip
+	unzip /tmp/fiji.zip -d /tmp/fiji
+	mv /tmp/fiji/Fiji.app /Fiji.app
+	rm -r /tmp/fiji*
 	# /Fiji.app/ImageJ-linux64 --update update
 	# echo "$VERSION__$(date --iso-8601)" > /VERSION
 	echo "$VERSION" > /VERSION
